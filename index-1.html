@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Timbrax: factura, controla y entiende tu negocio desde un solo lugar.">
+  <title>Timbrax | Facturación y control para tu negocio</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230b6cff'/%3E%3Cpath d='M18 18h28v9H27v8h16v9H27v10h-9z' fill='white'/%3E%3C/svg%3E">
+  <style>
+    :root { --navy:#071a38; --blue:#0b6cff; --cyan:#17c6df; --ink:#12223b; --muted:#65738a; --line:#dfe8f3; --pale:#f4f8fd; --white:#fff; --shadow:0 24px 70px rgba(9,42,87,.13); }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; color:var(--ink); background:var(--white); line-height:1.55; }
+    a { color:inherit; text-decoration:none; }
+    .wrap { width:min(1120px, calc(100% - 40px)); margin:auto; }
+    header { position:sticky; top:0; z-index:10; background:rgba(255,255,255,.9); backdrop-filter:blur(14px); border-bottom:1px solid rgba(223,232,243,.75); }
+    .nav { min-height:76px; display:flex; align-items:center; justify-content:space-between; gap:25px; }
+    .brand { display:flex; align-items:center; gap:10px; font-weight:850; font-size:1.25rem; letter-spacing:-.04em; }
+    .mark { display:grid; place-items:center; width:34px; height:34px; border-radius:10px; background:var(--blue); color:#fff; box-shadow:0 8px 18px rgba(11,108,255,.3); }
+    .navlinks { display:flex; align-items:center; gap:27px; color:#4d5d73; font-size:.94rem; }
+    .navlinks a:hover { color:var(--blue); }
+    .btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; border:0; border-radius:11px; padding:13px 19px; font:inherit; font-weight:750; cursor:pointer; transition:transform .2s,box-shadow .2s,background .2s; }
+    .btn:hover { transform:translateY(-2px); }
+    .btn-primary { background:var(--blue); color:#fff; box-shadow:0 10px 24px rgba(11,108,255,.25); }
+    .btn-primary:hover { background:#075bd7; }
+    .btn-ghost { background:#eaf2ff; color:#075bd7; }
+    .hero { overflow:hidden; background:radial-gradient(circle at 88% 12%, #d9f8ff 0, transparent 34%), linear-gradient(180deg,#f7fbff 0%,#fff 80%); padding:82px 0 68px; }
+    .hero-grid { display:grid; grid-template-columns:1fr 1.05fr; align-items:center; gap:60px; }
+    .eyebrow { display:inline-flex; align-items:center; gap:8px; color:#075bd7; font-weight:800; font-size:.82rem; text-transform:uppercase; letter-spacing:.12em; }
+    .eyebrow:before { content:""; width:8px; height:8px; background:var(--cyan); border-radius:50%; }
+    h1 { margin:15px 0 20px; max-width:600px; color:var(--navy); font-size:clamp(2.65rem,5vw,4.65rem); line-height:1.02; letter-spacing:-.075em; }
+    .hero-copy { max-width:520px; color:var(--muted); font-size:1.16rem; }
+    .hero-actions { display:flex; flex-wrap:wrap; gap:13px; margin-top:28px; }
+    .trust { display:flex; flex-wrap:wrap; gap:17px; margin-top:26px; color:#687991; font-size:.87rem; }
+    .trust span { display:flex; align-items:center; gap:6px; }
+    .trust b { color:#16a06c; font-size:1rem; }
+    .dash-wrap { position:relative; }
+    .dash-wrap:before { content:""; position:absolute; inset:-28px -38px 35px 36px; background:#dff7ff; border-radius:50%; filter:blur(2px); }
+    .dashboard { position:relative; background:#fff; border:1px solid #d9e5f2; border-radius:20px; padding:18px; box-shadow:var(--shadow); }
+    .dash-top { display:flex; justify-content:space-between; align-items:center; padding-bottom:15px; border-bottom:1px solid #edf2f7; }
+    .mini-logo { font-weight:850; color:var(--navy); }
+    .avatar { width:32px; height:32px; display:grid; place-items:center; border-radius:50%; background:#dff7ff; color:#0788ad; font-weight:800; }
+    .dash-title { margin:22px 0 4px; font-size:1.35rem; color:var(--navy); }
+    .dash-sub { margin:0 0 18px; color:var(--muted); font-size:.84rem; }
+    .metric-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+    .metric { padding:14px; border:1px solid #e9eff6; border-radius:12px; background:#fbfdff; }
+    .metric small { color:var(--muted); display:block; font-size:.74rem; }
+    .metric strong { display:block; margin:4px 0; color:var(--navy); font-size:1.3rem; }
+    .up { color:#16a06c; font-size:.73rem; font-weight:700; }
+    .chart { height:150px; position:relative; margin-top:14px; padding:14px; border:1px solid #e9eff6; border-radius:12px; overflow:hidden; background:linear-gradient(180deg,#fbfdff,#fff); }
+    .chart svg { width:100%; height:100%; }
+    .invoice { display:flex; align-items:center; justify-content:space-between; margin-top:12px; padding:12px 14px; background:#f1f7ff; border-radius:11px; font-size:.8rem; }
+    .invoice em { color:#16a06c; font-style:normal; font-weight:800; }
+    section { padding:92px 0; }
+    .section-head { max-width:650px; margin-bottom:40px; }
+    .section-head h2 { margin:10px 0 12px; color:var(--navy); font-size:clamp(2rem,4vw,3rem); line-height:1.08; letter-spacing:-.06em; }
+    .section-head p { margin:0; color:var(--muted); font-size:1.06rem; }
+    .features { background:var(--pale); }
+    .feature-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    .card { background:#fff; border:1px solid var(--line); border-radius:17px; padding:25px; }
+    .icon { width:42px; height:42px; display:grid; place-items:center; border-radius:12px; background:#e8f1ff; color:var(--blue); font-size:1.3rem; }
+    .card h3 { margin:18px 0 8px; color:var(--navy); font-size:1.08rem; }
+    .card p { margin:0; color:var(--muted); font-size:.94rem; }
+    .how-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:26px; counter-reset:steps; }
+    .step { position:relative; padding-top:53px; }
+    .step:before { counter-increment:steps; content:counter(steps,"0"); position:absolute; top:0; left:0; color:var(--blue); font-size:2.4rem; font-weight:850; letter-spacing:-.08em; }
+    .step h3 { margin:0 0 8px; color:var(--navy); }
+    .step p { margin:0; color:var(--muted); }
+    .pricing { background:#f7fbff; }
+    .price-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:17px; align-items:stretch; }
+    .price-card { display:flex; flex-direction:column; padding:28px; border:1px solid var(--line); border-radius:18px; background:#fff; }
+    .price-card.featured { border:2px solid var(--blue); box-shadow:0 17px 40px rgba(11,108,255,.12); transform:translateY(-8px); }
+    .tag { align-self:flex-start; padding:5px 9px; border-radius:20px; background:#e6f0ff; color:#075bd7; font-size:.72rem; font-weight:800; text-transform:uppercase; letter-spacing:.08em; }
+    .price-card h3 { margin:17px 0 3px; color:var(--navy); font-size:1.25rem; }
+    .price-card p { color:var(--muted); font-size:.9rem; min-height:47px; }
+    .price { margin:12px 0 20px; color:var(--navy); font-size:2.45rem; font-weight:850; letter-spacing:-.07em; }
+    .price small { color:var(--muted); font-size:.85rem; font-weight:500; letter-spacing:0; }
+    .checks { display:grid; gap:11px; margin:0 0 25px; padding:0; list-style:none; color:#4e6078; font-size:.9rem; }
+    .checks li:before { content:"✓"; margin-right:8px; color:#16a06c; font-weight:900; }
+    .price-card .btn { margin-top:auto; width:100%; }
+    .faq-grid { display:grid; grid-template-columns:1fr 1fr; gap:15px; }
+    details { padding:18px 20px; border:1px solid var(--line); border-radius:13px; background:#fff; }
+    summary { cursor:pointer; color:var(--navy); font-weight:750; }
+    details p { margin:12px 0 0; color:var(--muted); font-size:.93rem; }
+    .cta { padding:62px 0; background:var(--navy); color:#fff; }
+    .cta-inner { display:flex; align-items:center; justify-content:space-between; gap:25px; }
+    .cta h2 { margin:0 0 8px; font-size:clamp(1.8rem,4vw,2.7rem); letter-spacing:-.06em; }
+    .cta p { margin:0; color:#b9c8dd; }
+    footer { padding:27px 0; color:#75869d; font-size:.85rem; }
+    .footer-inner { display:flex; justify-content:space-between; gap:20px; }
+    .modal { display:none; position:fixed; inset:0; z-index:30; place-items:center; padding:20px; background:rgba(4,17,37,.62); }
+    .modal.open { display:grid; }
+    .modal-box { position:relative; width:min(470px,100%); padding:30px; border-radius:18px; background:#fff; box-shadow:var(--shadow); }
+    .close { position:absolute; top:13px; right:16px; border:0; background:transparent; color:var(--muted); font-size:1.6rem; cursor:pointer; }
+    .modal h2 { margin:0 0 7px; color:var(--navy); }
+    .modal p { margin:0 0 20px; color:var(--muted); }
+    label { display:block; margin:13px 0 6px; color:var(--navy); font-size:.88rem; font-weight:700; }
+    input { width:100%; padding:13px 14px; border:1px solid #cdd9e7; border-radius:10px; font:inherit; }
+    input:focus { outline:3px solid #dceaff; border-color:var(--blue); }
+    .modal .btn { width:100%; margin-top:20px; }
+    .success { display:none; padding:13px; border-radius:10px; background:#e8fbf3; color:#08734a; font-weight:650; }
+    @media (max-width:800px) { .navlinks { display:none; } .hero-grid { grid-template-columns:1fr; gap:35px; } .feature-grid,.price-grid,.how-grid { grid-template-columns:1fr; } .price-card.featured { transform:none; } .faq-grid { grid-template-columns:1fr; } .cta-inner { align-items:flex-start; flex-direction:column; } }
+    @media (max-width:500px) { .wrap { width:min(100% - 28px,1120px); } .hero { padding-top:55px; } section { padding:65px 0; } h1 { font-size:2.8rem; } .metric-grid { grid-template-columns:1fr; } .footer-inner { flex-direction:column; } }
+  </style>
+</head>
+<body>
+  <header><div class="wrap nav"><a class="brand" href="#inicio"><span class="mark">T</span> timbra<span style="color:var(--blue)">x</span></a><nav class="navlinks"><a href="#funciones">Funciones</a><a href="#como-funciona">Cómo funciona</a><a href="#planes">Planes</a><a href="#faq">Preguntas</a></nav><button class="btn btn-primary" data-open>Acceso inicial</button></div></header>
+  <main>
+    <section class="hero" id="inicio"><div class="wrap hero-grid"><div><span class="eyebrow">Control sencillo para México</span><h1>Factura, controla y entiende tu negocio.</h1><p class="hero-copy">Timbrax reúne facturación, clientes, gastos y reportes en un solo lugar para que tomes decisiones con más claridad.</p><div class="hero-actions"><button class="btn btn-primary" data-open>Quiero acceso inicial <span>→</span></button><a class="btn btn-ghost" href="#funciones">Conocer Timbrax</a></div><div class="trust"><span><b>✓</b> Pensado para México</span><span><b>✓</b> Sin contratos forzosos</span><span><b>✓</b> Acompañamiento humano</span></div></div><div class="dash-wrap"><div class="dashboard"><div class="dash-top"><span class="mini-logo">timbra<span style="color:var(--blue)">x</span></span><span class="avatar">IR</span></div><h2 class="dash-title">Resumen de tu negocio</h2><p class="dash-sub">Septiembre 2026 · Vista general</p><div class="metric-grid"><div class="metric"><small>Ingresos</small><strong>$84,620</strong><span class="up">↑ 12.8%</span></div><div class="metric"><small>Facturas</small><strong>126</strong><span class="up">↑ 8.4%</span></div><div class="metric"><small>Por cobrar</small><strong>$18,940</strong><span class="up">3 pendientes</span></div></div><div class="chart"><svg viewBox="0 0 500 150" preserveAspectRatio="none" aria-label="Gráfica de ingresos"><path d="M0 125 C52 110 56 92 104 106 S151 80 190 96 S238 43 275 70 S319 77 357 45 S411 66 447 23 S479 25 500 12 L500 150 L0 150Z" fill="#e6f1ff"/><path d="M0 125 C52 110 56 92 104 106 S151 80 190 96 S238 43 275 70 S319 77 357 45 S411 66 447 23 S479 25 500 12" fill="none" stroke="#0b6cff" stroke-width="4"/></svg></div><div class="invoice"><span>Factura #TMX-0184 · Cliente confirmado</span><em>Timbrada ✓</em></div></div></div></div></section>
+    <section class="features" id="funciones"><div class="wrap"><div class="section-head"><span class="eyebrow">Todo en un mismo lugar</span><h2>Menos pendientes. Más control.</h2><p>Las herramientas esenciales para operar tu negocio sin perderte entre hojas de cálculo y plataformas desconectadas.</p></div><div class="feature-grid"><article class="card"><div class="icon">▣</div><h3>Facturación CFDI</h3><p>Emite y consulta tus comprobantes con una experiencia clara y preparada para las necesidades fiscales de México.</p></article><article class="card"><div class="icon">♙</div><h3>Clientes organizados</h3><p>Ten a la mano los datos de tus clientes y el historial de cada operación.</p></article><article class="card"><div class="icon">$</div><h3>Gastos e ingresos</h3><p>Registra movimientos y entiende cómo se está comportando tu negocio.</p></article><article class="card"><div class="icon">⌁</div><h3>Reportes útiles</h3><p>Convierte tus datos en información que te ayude a decidir qué hacer después.</p></article><article class="card"><div class="icon">✦</div><h3>Asistente inteligente</h3><p>Obtén respuestas y explicaciones en lenguaje sencillo cuando las necesites.</p></article><article class="card"><div class="icon">☏</div><h3>Acompañamiento humano</h3><p>Cuando necesites apoyo, tendrás una ruta clara para resolver tus dudas.</p></article></div></div></section>
+    <section id="como-funciona"><div class="wrap"><div class="section-head"><span class="eyebrow">Empieza sin complicarte</span><h2>Así funciona Timbrax.</h2></div><div class="how-grid"><article class="step"><h3>Regístrate</h3><p>Déjanos tus datos básicos para conocer tu negocio y darte acceso a la primera versión.</p></article><article class="step"><h3>Organiza</h3><p>Centraliza clientes, facturas, ingresos y gastos con una vista fácil de entender.</p></article><article class="step"><h3>Decide</h3><p>Consulta tus reportes y recibe claridad para avanzar con más seguridad.</p></article></div></div></section>
+    <section class="pricing" id="planes"><div class="wrap"><div class="section-head"><span class="eyebrow">Precios de validación</span><h2>Elige el nivel que necesita tu negocio.</h2><p>Comienza con lo esencial y crece cuando estés listo.</p></div><div class="price-grid"><article class="price-card"><h3>Esencial</h3><p>Para comenzar a ordenar tu operación.</p><div class="price">$299 <small>MXN/mes</small></div><ul class="checks"><li>Facturación básica</li><li>Catálogo de clientes</li><li>Registro de gastos</li><li>Soporte por correo</li></ul><button class="btn btn-ghost" data-open>Me interesa</button></article><article class="price-card featured"><span class="tag">Más elegido</span><h3>Control</h3><p>Para negocios que buscan una vista completa.</p><div class="price">$499 <small>MXN/mes</small></div><ul class="checks"><li>Todo lo del plan Esencial</li><li>Reportes de negocio</li><li>Asistente inteligente</li><li>Atención prioritaria</li></ul><button class="btn btn-primary" data-open>Quiero acceso</button></article><article class="price-card"><h3>Impulso</h3><p>Para avanzar con mayor acompañamiento.</p><div class="price">$799 <small>MXN/mes</small></div><ul class="checks"><li>Todo lo del plan Control</li><li>Más usuarios y operaciones</li><li>Revisión de configuración</li><li>Acompañamiento personalizado</li></ul><button class="btn btn-ghost" data-open>Me interesa</button></article></div></div></section>
+    <section id="faq"><div class="wrap"><div class="section-head"><span class="eyebrow">Preguntas frecuentes</span><h2>Claro desde el inicio.</h2></div><div class="faq-grid"><details><summary>¿Timbrax sustituye a mi contador?</summary><p>Timbrax ayuda a organizar y entender tu información. Para decisiones fiscales específicas, puedes apoyarte en un contador profesional.</p></details><details><summary>¿Necesito entregar mi e.firma para registrarme?</summary><p>No. Para solicitar acceso inicial solo pedimos datos básicos de contacto. No compartas contraseñas del SAT ni información fiscal sensible en este formulario.</p></details><details><summary>¿Los precios son definitivos?</summary><p>Son precios de validación del MVP y pueden ajustarse conforme evolucione el producto.</p></details><details><summary>¿Puedo cancelar cuando quiera?</summary><p>Sí. No hay contratos forzosos en esta etapa.</p></details></div></div></section>
+    <section class="cta"><div class="wrap cta-inner"><div><h2>Ordena tu negocio desde hoy.</h2><p>Únete a la lista de acceso inicial de Timbrax.</p></div><button class="btn btn-primary" style="background:#fff;color:#075bd7" data-open>Solicitar acceso →</button></div></section>
+  </main>
+  <footer><div class="wrap footer-inner"><span>© 2026 Timbrax. Hecho para negocios en México.</span><span>Facturación · Control · Claridad</span></div></footer>
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"><div class="modal-box"><button class="close" data-close aria-label="Cerrar">×</button><h2 id="modal-title">Solicita acceso inicial</h2><p>Déjanos tus datos y te contactaremos cuando Timbrax esté listo para ti.</p><form id="lead-form"><label for="name">Nombre</label><input id="name" name="name" required autocomplete="name" placeholder="Tu nombre"><label for="email">Correo electrónico</label><input id="email" name="email" type="email" required autocomplete="email" placeholder="tu@correo.com"><label for="business">¿Qué tipo de negocio tienes?</label><input id="business" name="business" required placeholder="Ej. tienda, servicios, comercio"><button class="btn btn-primary" type="submit">Quiero estar en la lista</button></form><div class="success" id="success">¡Listo! Registramos tu interés. Te contactaremos pronto.</div></div></div>
+  <script>
+    const modal = document.getElementById('modal');
+    const openModal = () => { modal.classList.add('open'); document.getElementById('name').focus(); };
+    const closeModal = () => modal.classList.remove('open');
+    document.querySelectorAll('[data-open]').forEach((button) => button.addEventListener('click', openModal));
+    document.querySelector('[data-close]').addEventListener('click', closeModal);
+    modal.addEventListener('click', (event) => { if (event.target === modal) closeModal(); });
+    document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeModal(); });
+    document.getElementById('lead-form').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const data = Object.fromEntries(new FormData(event.currentTarget));
+      localStorage.setItem(`timbrax_lead_${Date.now()}`, JSON.stringify({...data, createdAt:new Date().toISOString()}));
+      event.currentTarget.style.display = 'none';
+      document.getElementById('success').style.display = 'block';
+    });
+  </script>
+</body>
+</html>
